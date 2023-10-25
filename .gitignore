@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+jspm_packages/
+postgres-data/
 
 # Logs
 logs
