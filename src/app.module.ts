@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { UserModule } from './user/user.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { UserModule } from './user/user.module';
     }),
     UserModule,
   ],
-  providers: [],
+  providers: [PrismaService],
 })
 export class AppModule {}
