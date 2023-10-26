@@ -2,11 +2,54 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Auth {
+  accessToken: String!
+  email: String!
+  firstName: String!
+  id: Float!
+  lastName: String!
+  refreshToken: String!
+  role: String!
+  verified: Boolean!
+}
+
+type Mutation {
+  signIn(data: SignInDto!): Auth!
+  signUp(data: SignUpDto!): Auth!
+}
+
 type Query {
   users: [User!]!
 }
 
+input SignInDto {
+  """Email"""
+  email: String!
+
+  """Password"""
+  password: String!
+}
+
+input SignUpDto {
+  """Email"""
+  email: String!
+
+  """First name"""
+  firstName: String!
+
+  """Last name"""
+  lastName: String!
+
+  """Password"""
+  password: String!
+}
+
 type User {
   email: String!
-  name: String!
+  firstName: String!
+  id: Float!
+  lastName: String!
+  password: String!
+  role: String!
+  verified: Boolean!
 }
