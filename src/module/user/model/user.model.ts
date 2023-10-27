@@ -12,9 +12,6 @@ export class User {
   lastName: string;
 
   @Field()
-  password: string;
-
-  @Field()
   role: string;
 
   @Field()
