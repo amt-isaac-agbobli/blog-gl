@@ -16,7 +16,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async profile(@CurrentUser() user: User): Promise<object> {
+  async profile(@CurrentUser() user: User): Promise<User> {
     return await this.userService.findUserByEmail(user.email);
   }
 }

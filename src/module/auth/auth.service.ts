@@ -53,6 +53,19 @@ export class AuthService {
       throw error;
     }
   }
+  async refreshToken(token: string): Promise<object> {
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: this.configService.get<string>('RT_SECRET'),
+      });
+      const user = await this.userService.findUserByEmail(payload.email);
+      const { id, email, role } = user;
+      const { accessToken } = await this.generateJwtToken({ id, email, role });
+      return { accessToken };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
   private async generateJwtToken(user: {
     email: string;
     id: number;
