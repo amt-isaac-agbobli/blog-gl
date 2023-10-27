@@ -1,13 +1,13 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
-    private readonly config: ConfigService,
+    config: ConfigService,
     private readonly prisma: PrismaService,
   ) {
     super({
@@ -22,9 +22,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         email: payload.email,
       },
     });
-    if (user) {
-      delete user.password;
+    if (!user) {
+      return new HttpException('Invalid token', 401);
     }
+
     return user;
   }
 }

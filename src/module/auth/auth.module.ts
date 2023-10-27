@@ -6,6 +6,7 @@ import { UserService } from '../user/user.service';
 import { UtilService } from 'src/common/util/util.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './strategy';
 
 @Module({
   providers: [
@@ -15,6 +16,7 @@ import { PassportModule } from '@nestjs/passport';
     UserService,
     UtilService,
     JwtService,
+    JwtStrategy,
   ],
   imports: [
     JwtModule.register({}),

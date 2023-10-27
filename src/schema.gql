@@ -19,6 +19,7 @@ type Mutation {
 }
 
 type Query {
+  profile: User!
   users: [User!]!
 }
 
@@ -49,7 +50,6 @@ type User {
   firstName: String!
   id: Float!
   lastName: String!
-  password: String!
   role: String!
   verified: Boolean!
 }
