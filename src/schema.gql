@@ -13,12 +13,41 @@ type Auth {
   verified: Boolean!
 }
 
+input FollowerIdInput {
+  """The id of the follower"""
+  id: Float!
+}
+
+type Following {
+  followerId: Float
+  following: FollowingObject
+  id: Float
+}
+
+input FollowingInput {
+  """The id of the User being followed"""
+  followingId: Float!
+}
+
+type FollowingObject {
+  email: String
+  firstName: String
+  id: Float
+}
+
 type Mutation {
+  """Follow a user"""
+  follow(followingInput: FollowingInput!): [Following!]!
   signIn(data: SignInDto!): Auth!
   signUp(data: SignUpDto!): Auth!
+
+  """Unfollow a user"""
+  unfollow(followerIdInput: FollowerIdInput!): [Following!]!
 }
 
 type Query {
+  followers: [Following!]!
+  followings: [Following!]!
   profile: User!
   users: [User!]!
 }
