@@ -13,6 +13,11 @@ type Auth {
   verified: Boolean!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 input FollowerIdInput {
   """The id of the follower"""
   id: Float!
@@ -36,6 +41,8 @@ type FollowingObject {
 }
 
 type Mutation {
+  createPost(postInput: PostDto!): Post!
+
   """Follow a user"""
   follow(followingInput: FollowingInput!): [Following!]!
   signIn(data: SignInDto!): Auth!
@@ -43,6 +50,34 @@ type Mutation {
 
   """Unfollow a user"""
   unfollow(followerIdInput: FollowerIdInput!): [Following!]!
+}
+
+type Post {
+  """author id of the post"""
+  authorId: String!
+
+  """content of the post"""
+  content: String!
+
+  """created at of the post"""
+  createdAt: DateTime!
+
+  """id of the post"""
+  id: String!
+
+  """title of the post"""
+  title: String!
+
+  """updated at of the post"""
+  updatedAt: DateTime!
+}
+
+input PostDto {
+  """content of the post"""
+  content: String!
+
+  """title of the post"""
+  title: String!
 }
 
 type Query {
