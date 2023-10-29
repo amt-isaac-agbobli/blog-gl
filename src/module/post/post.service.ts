@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PostDto } from './dto';
-import { Post } from './model';
+import { GraphQLError } from 'graphql';
 
 @Injectable()
 export class PostService {
@@ -65,7 +65,7 @@ export class PostService {
     }
   }
 
-  async getPost(id: number): Promise<object> {
+  async getPost(id: number) {
     try {
       return await this.prisma.post.findUnique({
         where: { id },
@@ -82,6 +82,27 @@ export class PostService {
           },
         },
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updatePost(id: number, userId: number, postDto: PostDto) {
+    try {
+      const postExit = await this.getPost(id);
+      if (!postExit) throw new GraphQLError('No post fund to update');
+
+      if (postExit.authorId !== userId)
+        throw new GraphQLError('Access deny to edit this post');
+
+      const updatedPost = await this.prisma.post.update({
+        where: { id },
+        data: postDto,
+      });
+
+      if (!updatedPost) throw new GraphQLError('Post Field to update');
+
+      return updatedPost;
     } catch (error) {
       throw error;
     }

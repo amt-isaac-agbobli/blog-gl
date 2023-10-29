@@ -34,4 +34,13 @@ export class PostResolver {
   async getPost(@Args('postId') postId: number): Promise<object> {
     return await this.postService.getPost(postId);
   }
+
+  @Mutation(() => Post)
+  async updatePost(
+    @Args('postId') postId: number,
+    @Args('post') post: PostDto,
+    @CurrentUser() user: User,
+  ) {
+    return await this.updatePost(postId, post, user);
+  }
 }

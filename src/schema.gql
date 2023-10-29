@@ -55,6 +55,7 @@ type Mutation {
 
   """Unfollow a user"""
   unfollow(followerIdInput: FollowerIdInput!): [Following!]!
+  updatePost(post: PostDto!, postId: Float!): Post!
 }
 
 type Post {
