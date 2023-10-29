@@ -64,6 +64,7 @@ type FollowingObject {
 type Mutation {
   createComment(commetInput: CommentDto!): CommentModel!
   createPost(postInput: PostDto!): Post!
+  deleteComment(commentId: Float!): CommentModel!
   deletedPost(postId: Float!): DeletedPost!
 
   """Follow a user"""

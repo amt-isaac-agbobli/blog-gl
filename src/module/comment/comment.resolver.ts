@@ -27,4 +27,12 @@ export class CommentResolver {
   ) {
     return await this.commentService.updateComment(updatedCommentInput, user);
   }
+
+  @Mutation(() => CommentModel)
+  async deleteComment(
+    @Args('commentId') commentId: number,
+    @CurrentUser() user: User,
+  ) {
+    return await this.commentService.deleteComment(commentId, user);
+  }
 }

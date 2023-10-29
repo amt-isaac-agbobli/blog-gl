@@ -62,4 +62,24 @@ export class CommentService {
       throw error;
     }
   }
+
+  async deleteComment(id: number, user: User) {
+    try {
+      const commentExit = await this.getUserComment(id);
+      if (!commentExit) throw new GraphQLError('No coment Exit to delete');
+
+      if (commentExit.authorId !== user.id)
+        throw new GraphQLError('You are not allowed to delete this comment');
+
+      const deletedComment = await this.prisma.comment.delete({
+        where: {
+          id,
+        },
+      });
+
+      return deletedComment;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
