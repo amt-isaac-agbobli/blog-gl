@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PostDto } from './dto';
 import { GraphQLError } from 'graphql';
+import { User } from '../user/model';
 
 @Injectable()
 export class PostService {
@@ -103,6 +104,25 @@ export class PostService {
       if (!updatedPost) throw new GraphQLError('Post Field to update');
 
       return updatedPost;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async deletePost(id: number, user: User) {
+    try {
+      const postExit = await this.getPost(id);
+      if (!postExit) throw new GraphQLError('Post is not found');
+
+      if (postExit.authorId !== user.id)
+        throw new GraphQLError(
+          'You are not allowwed to perform action on this post',
+        );
+
+      const deletedPost = await this.prisma.post.delete({
+        where: { id },
+      });
+      if (!deletedPost) throw new GraphQLError('Post is failed to Delete');
+      return { message: 'Post is deleted ' };
     } catch (error) {
       throw error;
     }

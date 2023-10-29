@@ -23,6 +23,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type DeletedPost {
+  message: String!
+}
+
 input FollowerIdInput {
   """The id of the follower"""
   id: Float!
@@ -47,6 +51,7 @@ type FollowingObject {
 
 type Mutation {
   createPost(postInput: PostDto!): Post!
+  deletedPost(postId: Float!): DeletedPost!
 
   """Follow a user"""
   follow(followingInput: FollowingInput!): [Following!]!

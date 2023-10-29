@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { PostService } from './post.service';
-import { Post } from './model';
+import { Post, DeletedPost } from './model';
 import { PostDto } from './dto';
 import { CurrentUser } from '../auth/decorator';
 import { User } from '../user/model';
@@ -42,5 +42,13 @@ export class PostResolver {
     @CurrentUser() user: User,
   ) {
     return await this.updatePost(postId, post, user);
+  }
+
+  @Mutation(() => DeletedPost)
+  async deletedPost(
+    @Args('postId') postId: number,
+    @CurrentUser() user: User,
+  ): Promise<object> {
+    return await this.postService.deletePost(postId, user);
   }
 }
