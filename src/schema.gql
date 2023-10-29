@@ -13,6 +13,12 @@ type Auth {
   verified: Boolean
 }
 
+input ChangePasswordDto {
+  confirmPassword: String!
+  oldPassword: String!
+  password: String!
+}
+
 type Comment {
   author: String
   content: String
@@ -62,6 +68,7 @@ type FollowingObject {
 }
 
 type Mutation {
+  chanePassword(changePasswordInput: ChangePasswordDto!): User!
   createComment(commetInput: CommentDto!): CommentModel!
   createPost(postInput: PostDto!): Post!
   deleteComment(commentId: Float!): CommentModel!
