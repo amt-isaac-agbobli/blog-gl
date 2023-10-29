@@ -11,22 +11,22 @@ class Comment {
 
 @ObjectType()
 export class Post {
-  @Field(() => Int, { description: 'id of the post' })
+  @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field(() => String, { description: 'title of the post' })
+  @Field(() => String, { nullable: true })
   title: string;
 
-  @Field(() => String, { description: 'content of the post' })
+  @Field(() => String, { nullable: true })
   content: string;
 
-  @Field(() => Int, { description: 'author id of the post' })
+  @Field(() => Int, { nullable: true })
   authorId: number;
 
-  @Field(() => Date, { description: 'created at of the post' })
+  @Field(() => Date, { nullable: true })
   createdAt: Date;
 
-  @Field(() => Date, { description: 'updated at of the post' })
+  @Field(() => Date, { nullable: true })
   updatedAt: Date;
 
   @Field({ nullable: true })

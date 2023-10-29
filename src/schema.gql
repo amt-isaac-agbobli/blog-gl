@@ -3,14 +3,14 @@
 # ------------------------------------------------------
 
 type Auth {
-  accessToken: String!
-  email: String!
-  firstName: String!
-  id: Float!
-  lastName: String!
-  refreshToken: String!
-  role: String!
-  verified: Boolean!
+  accessToken: String
+  email: String
+  firstName: String
+  id: Float
+  lastName: String
+  refreshToken: String
+  role: String
+  verified: Boolean
 }
 
 type Comment {
@@ -24,7 +24,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type DeletedPost {
-  message: String!
+  message: String
 }
 
 input FollowerIdInput {
@@ -64,24 +64,13 @@ type Mutation {
 }
 
 type Post {
-  """author id of the post"""
-  authorId: Int!
+  authorId: Int
   comments: Comment
-
-  """content of the post"""
-  content: String!
-
-  """created at of the post"""
-  createdAt: DateTime!
-
-  """id of the post"""
-  id: Int!
-
-  """title of the post"""
-  title: String!
-
-  """updated at of the post"""
-  updatedAt: DateTime!
+  content: String
+  createdAt: DateTime
+  id: Int
+  title: String
+  updatedAt: DateTime
 }
 
 input PostDto {
