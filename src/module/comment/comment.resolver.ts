@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CommentService } from './comment.service';
-import { CommentDto } from './dto';
+import { CommentDto, UpdateCommentDto } from './dto';
 import { CurrentUser } from '../auth/decorator';
 import { User } from '../user/model';
 import { CommentModel } from './model';
@@ -18,5 +18,13 @@ export class CommentResolver {
     @CurrentUser() user: User,
   ): Promise<object> {
     return this.commentService.createComment(commentInput, user);
+  }
+
+  @Mutation(() => CommentModel)
+  async updateComment(
+    @Args('updatedCommentInput') updatedCommentInput: UpdateCommentDto,
+    @CurrentUser() user: User,
+  ) {
+    return await this.commentService.updateComment(updatedCommentInput, user);
   }
 }

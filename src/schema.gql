@@ -73,6 +73,7 @@ type Mutation {
 
   """Unfollow a user"""
   unfollow(followerIdInput: FollowerIdInput!): [Following!]!
+  updateComment(updatedCommentInput: UpdateCommentDto!): CommentModel!
   updatePost(post: PostDto!, postId: Float!): Post!
 }
 
@@ -124,6 +125,11 @@ input SignUpDto {
 
   """Password"""
   password: String!
+}
+
+input UpdateCommentDto {
+  content: String!
+  id: Float!
 }
 
 type User {

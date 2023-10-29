@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PostService } from '../post/post.service';
-import { CommentDto } from './dto';
+import { CommentDto, UpdateCommentDto } from './dto';
 import { User } from '../user/model';
 import { GraphQLError } from 'graphql';
 
@@ -28,6 +28,36 @@ export class CommentService {
       if (!createdComment)
         throw new GraphQLError('Failed to comment on the post');
       return createdComment;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserComment(id: number) {
+    try {
+      return await this.prisma.comment.findUnique({ where: { id } });
+    } catch (error) {
+      throw error;
+    }
+  }
+  async updateComment(updateComment: UpdateCommentDto, user: User) {
+    try {
+      const { id, content } = updateComment;
+
+      const commentExit = await this.getUserComment(id);
+      if (!commentExit) throw new GraphQLError('No coment Exit to upddate');
+
+      if (commentExit.authorId !== user.id)
+        throw new GraphQLError('You are not allowed to update this comment');
+
+      const updatedComment = await this.prisma.comment.update({
+        where: {
+          id,
+        },
+        data: { content },
+      });
+
+      return updatedComment;
     } catch (error) {
       throw error;
     }
