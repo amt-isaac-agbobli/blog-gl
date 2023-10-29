@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PostDto } from './dto';
+import { Post } from './model';
 
 @Injectable()
 export class PostService {
@@ -12,6 +13,51 @@ export class PostService {
         data: {
           ...data,
           authorId,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserPost(authorId: number): Promise<object[]> {
+    try {
+      return await this.prisma.post.findMany({
+        where: {
+          authorId,
+        },
+        include: {
+          comments: {
+            include: {
+              author: true,
+            },
+          },
+          likes: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllPost(): Promise<object[]> {
+    try {
+      return await this.prisma.post.findMany({
+        include: {
+          comments: {
+            include: {
+              author: true,
+            },
+          },
+          likes: {
+            include: {
+              author: true,
+            },
+          },
         },
       });
     } catch (error) {
