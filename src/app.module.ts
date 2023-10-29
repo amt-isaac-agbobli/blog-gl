@@ -9,6 +9,7 @@ import { UtilModule } from './common/util/util.module';
 import { PassportModule } from '@nestjs/passport';
 import { FollowerModule } from './module/follower/follower.module';
 import { PostModule } from './module/post/post.module';
+import { CommentModule } from './module/comment/comment.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -26,6 +27,7 @@ import { PostModule } from './module/post/post.module';
     UtilModule,
     FollowerModule,
     PostModule,
+    CommentModule,
   ],
 })
 export class AppModule {}
