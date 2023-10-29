@@ -22,12 +22,16 @@ export class PostResolver {
 
   @Query(() => [Post])
   async getUserPost(@CurrentUser() user: User): Promise<object[]> {
-    const a = await this.postService.getUserPost(user.id);
-    console.log(a);
-    return a;
+    return await this.postService.getUserPost(user.id);
   }
+
   @Query(() => [Post])
   async getAllPost(): Promise<object[]> {
     return await this.postService.getAllPost();
+  }
+
+  @Query(() => Post)
+  async getPost(@Args('postId') postId: number): Promise<object> {
+    return await this.postService.getPost(postId);
   }
 }

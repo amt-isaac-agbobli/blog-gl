@@ -90,6 +90,7 @@ type Query {
   followers: [Following!]!
   followings: [Following!]!
   getAllPost: [Post!]!
+  getPost(postId: Float!): Post!
   getUserPost: [Post!]!
   profile: User!
   users: [User!]!

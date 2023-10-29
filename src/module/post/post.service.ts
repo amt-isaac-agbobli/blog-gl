@@ -64,4 +64,26 @@ export class PostService {
       throw error;
     }
   }
+
+  async getPost(id: number): Promise<object> {
+    try {
+      return await this.prisma.post.findUnique({
+        where: { id },
+        include: {
+          comments: {
+            include: {
+              author: true,
+            },
+          },
+          likes: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
