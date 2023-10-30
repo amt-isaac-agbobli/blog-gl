@@ -2,27 +2,27 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType('Auth')
 export class Auth {
-  @Field()
+  @Field({ nullable: true })
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   firstName: string;
 
-  @Field()
+  @Field({ nullable: true })
   lastName: string;
 
-  @Field()
+  @Field({ nullable: true })
   role: string;
 
-  @Field()
+  @Field({ nullable: true })
   verified: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   email: string;
 
-  @Field()
+  @Field({ nullable: true })
   accessToken: string;
 
-  @Field()
+  @Field({ nullable: true })
   refreshToken: string;
 }
