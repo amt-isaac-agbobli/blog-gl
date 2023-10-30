@@ -13,9 +13,27 @@ type Auth {
   verified: Boolean
 }
 
+input ChangePasswordDto {
+  confirmPassword: String!
+  oldPassword: String!
+  password: String!
+}
+
 type Comment {
   author: String
   content: String
+}
+
+input CommentDto {
+  content: String!
+  postId: Float!
+}
+
+type CommentModel {
+  authorId: Float
+  content: String
+  id: Float
+  postId: Float
 }
 
 """
@@ -50,7 +68,10 @@ type FollowingObject {
 }
 
 type Mutation {
+  chanePassword(changePasswordInput: ChangePasswordDto!): User!
+  createComment(commetInput: CommentDto!): CommentModel!
   createPost(postInput: PostDto!): Post!
+  deleteComment(commentId: Float!): CommentModel!
   deletedPost(postId: Float!): DeletedPost!
 
   """Follow a user"""
@@ -60,7 +81,9 @@ type Mutation {
 
   """Unfollow a user"""
   unfollow(followerIdInput: FollowerIdInput!): [Following!]!
+  updateComment(updatedCommentInput: UpdateCommentDto!): CommentModel!
   updatePost(post: PostDto!, postId: Float!): Post!
+  updateProfile(updatedInput: UpdateUserDto!): User!
 }
 
 type Post {
@@ -111,6 +134,19 @@ input SignUpDto {
 
   """Password"""
   password: String!
+}
+
+input UpdateCommentDto {
+  content: String!
+  id: Float!
+}
+
+input UpdateUserDto {
+  """First name"""
+  firstName: String!
+
+  """Last name"""
+  lastName: String!
 }
 
 type User {
